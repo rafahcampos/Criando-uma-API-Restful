@@ -6,6 +6,7 @@ import {
   IsNumber,
   IsPositive,
   IsString,
+  IsUUID,
   MaxLength,
   Min,
   ValidateNested,
@@ -15,6 +16,10 @@ import { ImagemDto } from './Imagem.dto';
 
 
 export class CriarProdutoDto {
+
+  @IsUUID(undefined,({message:'Id de usuário inválido'}))
+  usuarioId:string;
+
   @IsString()
   @IsNotEmpty({ message: 'O valor não pode ser vazio' })
   nome: string;
