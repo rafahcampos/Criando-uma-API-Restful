@@ -17,6 +17,9 @@ import { ImagemDto } from './Imagem.dto';
 
 export class CriarProdutoDto {
 
+  @IsUUID(undefined,({message:'Id de produto inválido'}))
+  idProduto:string;
+
   @IsUUID(undefined,({message:'Id de usuário inválido'}))
   usuarioId:string;
 
