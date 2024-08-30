@@ -15,3 +15,4 @@ export class ProdutoEntity{
     imagens:ImagemDto;
 
 }
+

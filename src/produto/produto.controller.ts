@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ProdutoRepository } from './produto.repository';
 import { CriarProdutoDto } from 'src/produto/dto/CriarProduto.dto';
 import { ProdutoEntity } from './produto.entity';
+import { AtualizaProdutoDTO } from './dto/AtualizarProduto';
 
 @Controller('/produtos')
 export class ProdutoController {
@@ -29,5 +30,22 @@ export class ProdutoController {
   @Get()
   async listarProdutos() {
     return this.produtoRepository.listar();
+  }
+
+  @Put('/:id')
+  async atualizaProduto(
+    @Param('id') idProduto:string,
+    @Body() novosDados:AtualizaProdutoDTO,
+  ){
+    const produtoAtualizado = await this.produtoRepository.atualiza(
+      idProduto, 
+      novosDados)
+    
+
+    return {
+      produtoAtualizado,
+      message:'produto atualizado com sucesso'
+    }
+    
   }
 }
