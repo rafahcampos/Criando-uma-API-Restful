@@ -3,7 +3,7 @@ import { ProdutoEntity } from './produto.entity';
 
 @Injectable()
 export class ProdutoRepository {
- 
+
   private produtos: ProdutoEntity[] = [];
 
   async salvar(produto) {
@@ -31,21 +31,24 @@ export class ProdutoRepository {
     return possivelProduto;
   }
 
-  async atualiza(id:string, dadosDeAtualização:Partial<ProdutoEntity>){
+  async atualiza(id: string, dadosDeAtualização: Partial<ProdutoEntity>) {
     const produto = this.buscaPorId(id)
 
     Object.entries(dadosDeAtualização).forEach
-    (([chave, valor])=>{
-      if(chave === 'idProduto' || chave === 'usuarioId'){
-        return
-      }
-      produto[chave] = valor; 
-    })
+      (([chave, valor]) => {
+        if (chave === 'idProduto' || chave === 'usuarioId') {
+          return
+        }
+        produto[chave] = valor;
+      })
     return produto;
   }
 
-  async remove(id:string){
-    const usuario = this.buscaPorId(id);
-    
+  async remove(idProduto: string) {
+    const produto = this.buscaPorId(idProduto);
+    this.produtos = this.produtos.filter(
+      produtoSalvo => produtoSalvo.idProduto !== idProduto);
+    return produto;
   }
 }
+

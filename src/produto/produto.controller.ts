@@ -34,18 +34,24 @@ export class ProdutoController {
 
   @Put('/:id')
   async atualizaProduto(
-    @Param('id') idProduto:string,
-    @Body() novosDados:AtualizaProdutoDTO,
-  ){
+    @Param('id') idProduto: string,
+    @Body() novosDados: AtualizaProdutoDTO,
+  ) {
     const produtoAtualizado = await this.produtoRepository.atualiza(
-      idProduto, 
-      novosDados)
-    
-
+      idProduto,
+      novosDados
+    );
     return {
       produtoAtualizado,
-      message:'produto atualizado com sucesso'
+      message: 'produto atualizado com sucesso'
     }
-    
+  }
+
+  async removeProduto(@Param('id') id: string) {
+    const produtoRemovido = await this.produtoRepository.remove(id)
+    return {
+      produtoRemovido,
+      message: 'usuário removido com sucesso'
+    }
   }
 }
